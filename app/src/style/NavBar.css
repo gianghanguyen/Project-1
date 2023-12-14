@@ -1,0 +1,36 @@
+/* src/Navbar.css */
+body {
+    margin: 0; /* Loại bỏ margin mặc định của body */
+  }
+  
+  .navbar {
+    background-color: white;
+    padding: 5px;
+    position: fixed; /* Thanh navbar giữ nguyên ở đầu trang */
+    width: 100%; /* Chiều rộng 100% của trang */
+    top: 0; /* Đặt ở trên cùng */
+    z-index: 1000; /* Đảm bảo hiển thị trên các phần khác của trang */
+  }
+  
+  .nav-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+  }
+  
+  .nav-list li {
+    margin-right: 15px;
+
+  }
+  .nav-list li:Home{
+    margin-right: 0px;
+  }
+  .nav-list li:first-child a {
+    font-weight: bold;
+  }
+  
+  .nav-list a {
+    text-decoration: none;
+    color: black;
+  }
+  
