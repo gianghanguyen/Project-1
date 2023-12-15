@@ -26,7 +26,7 @@ const PuzzleGame = () => {
     setPuzzle(shuffledPuzzle);
     setEmptyIndex(shuffledPuzzle.indexOf(9));
 
-    const puzzleConvert = shuffledPuzzle.map((number) => number - 1);
+    const puzzleConvert = shuffledPuzzle.map((number) => number);
 
     // Gọi API để lấy giải pháp của trạng thái mới
     try {
