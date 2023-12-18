@@ -1,8 +1,6 @@
 import random
 import itertools
 import collections
-import time
-import shuffle
 
 class Node:
     """
@@ -149,14 +147,15 @@ class Puzzle:
                     distance += abs(x - i) + abs(y - j)
         return distance
 
-    def shuffle(self):
-        """
-        Return a new puzzle that has been shuffled with 1000 random moves
-        """
-        puzzle = self
-        for _ in range(1000):
-            puzzle = random.choice(puzzle.actions)[0]()
-        return puzzle
+    def isSolvable(self):
+        inversions = 0
+        flatten_board = [num for row in self.board for num in row if num != 0]
+
+        for i in range(len(flatten_board)):
+            for j in range(i + 1, len(flatten_board)):
+                if flatten_board[i] > flatten_board[j]:
+                    inversions += 1
+        return inversions % 2 == 0
 
     def copy(self):
         """

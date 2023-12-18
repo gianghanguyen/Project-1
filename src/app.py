@@ -15,10 +15,15 @@ def home():
           numbers[i] = 0
     board = [numbers[i:i+3] for i in range(0, len(numbers), 3)]
     puzzle = Puzzle(board)
-    s = Solver(puzzle)
-    path = s.solve()
-    steps = 0
-    return ([node.puzzle.board for node in path])
+    solvable = puzzle.isSolvable()
+
+    if solvable:
+        s = Solver(puzzle)
+        path = s.solve()
+        return ([node.puzzle.board for node in path])
+    else:
+        res = "Unable to solve"
+        res.status_code = 500
 
 
 if __name__ == "__main__":
