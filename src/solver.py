@@ -92,6 +92,56 @@ class Solver:
                     queue.appendleft(child)
                     seen.add(child.state)
 
+    def dfs(self, depth_limit, iteration_limit):
+        stack = [Node(self.start)]
+        seen = set()
+        seen.add(stack[0].state)
+        visited_nodes = []
+        iterations = 0
+
+        while stack and iterations < iteration_limit:
+            node = stack.pop()
+            visited_nodes.append(node)
+            iterations += 1
+
+            if node.solved:
+                return visited_nodes
+
+            if node.g < depth_limit:
+                for move, action in node.actions:
+                    child = Node(move(), node, action)
+
+                    if child.state not in seen:
+                        stack.append(child)
+                        seen.add(child.state)
+
+        return visited_nodes  # Trả về danh sách các node đã đi qua nếu không tìm thấy giải pháp trong giới hạn độ sâu hoặc giới hạn lặp
+
+    def bfs(self, depth_limit, iteration_limit):
+        queue = collections.deque([Node(self.start)])
+        seen = set()
+        seen.add(queue[0].state)
+        visited_nodes = []
+        iterations = 0
+
+        while queue and iterations < iteration_limit:
+            queue = collections.deque(sorted(list(queue), key=lambda node: node.f))
+            node = queue.popleft()
+            visited_nodes.append(node)
+            iterations += 1
+
+            if node.solved:
+                return node.path
+
+            if node.g < depth_limit:
+                for move, action in node.actions:
+                    child = Node(move(), node, action)
+
+                    if child.state not in seen:
+                        queue.appendleft(child)
+                        seen.add(child.state)
+
+        return None 
 class Puzzle:
     """
     A class representing an '8-puzzle'.
@@ -176,11 +226,6 @@ class Puzzle:
         r, c = to
         copy.board[i][j], copy.board[r][c] = copy.board[r][c], copy.board[i][j]
         return copy
-
-    def pprint(self):
-        for row in self.board:
-            print(row)
-        print()
 
     def __str__(self):
         return ''.join(map(str, self))
