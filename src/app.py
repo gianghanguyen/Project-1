@@ -13,6 +13,8 @@ def convertInput(raw_input):
     board = [numbers[i:i+3] for i in range(0, len(numbers), 3)]
     return board
 
+def convertOutput(nested_list):
+    return [element for sublist in nested_list for element in sublist]
 
 @app.route('/astar-solver', methods=['GET'])
 def astar():
@@ -23,7 +25,7 @@ def astar():
     if solvable:
         s = Solver(puzzle)
         path = s.solve()
-        return ([node.puzzle.board for node in path])
+        return ([convertOutput(node.puzzle.board) for node in path])
     else:
         return "Unable to solve", 400
 
@@ -35,12 +37,12 @@ def dfs():
 
     if solvable:
         s = Solver(puzzle)
-        depthLimit = int(request.args.get('depth_limit', default=10))
-        nodeLimit = int(request.args.get('node_limit', default=10000))
+        depthLimit = int(request.args.get('depth_limit', default=100))
+        nodeLimit = int(request.args.get('node_limit', default=1000000))
 
         path = s.dfs(depthLimit, nodeLimit)
         if path != None:
-            return ([node.puzzle.board for node in path])
+            return ([convertOutput(node.puzzle.board) for node in path])
         else: 
             return "Cant find solution with depth " + str(depthLimit)
     else:
@@ -55,11 +57,12 @@ def bfs():
     if solvable:
         s = Solver(puzzle)
         depthLimit = int(request.args.get('depth_limit', default=100))
-        nodeLimit = int(request.args.get('node_limit', default=10000))
+        nodeLimit = int(request.args.get('node_limit', default=1000000))
 
         path = s.dfs(depthLimit, nodeLimit)
         if path != None:
-            return ([node.puzzle.board for node in path])
+            return ([convertOutput(node.puzzle.board) for node in path])
+
         else: 
             return "Cant find solution with depth " + str(depthLimit)
     else:

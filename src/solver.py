@@ -105,7 +105,7 @@ class Solver:
             iterations += 1
 
             if node.solved:
-                return visited_nodes
+                return node.path
 
             if node.g < depth_limit:
                 for move, action in node.actions:
@@ -115,7 +115,7 @@ class Solver:
                         stack.append(child)
                         seen.add(child.state)
 
-        return visited_nodes  # Trả về danh sách các node đã đi qua nếu không tìm thấy giải pháp trong giới hạn độ sâu hoặc giới hạn lặp
+        return None  # Trả về danh sách các node đã đi qua nếu không tìm thấy giải pháp trong giới hạn độ sâu hoặc giới hạn lặp
 
     def bfs(self, depth_limit, iteration_limit):
         queue = collections.deque([Node(self.start)])
