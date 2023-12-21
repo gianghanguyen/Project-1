@@ -1,30 +1,33 @@
-#solution-container {
-    display: grid;
-    grid-template-columns: repeat(3, 50px);
-    grid-gap: 5px;
-    margin-bottom: 10px;
-  }
-  
-  .solution-piece {
-    width: 50px;
-    height: 50px;
-    border: 1px solid #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  
-  .empty {
-    background-color: #ccc;
-  }
-  
-  .navigation-buttons {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  /* Add any additional styling as needed */
+#puzzle-container {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  position: relative;
+  left: 20px; /* Di chuyển sang phải 20px từ vị trí mặc định */
+  top: 80px;
+}
+
+.puzzle-piece {
+  width: 100px;
+  height: 100px;
+  background-color: #3498db;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.puzzle-piece.empty {
+  background-color: #fff; /* Màu của ô trống */
+  /* color: #3498db; Màu chữ của ô trống */
+}
+
+#replayButton {
+  margin-top: 10px; /* Add margin to the button */
+  background-color: #3498db;
+}
   

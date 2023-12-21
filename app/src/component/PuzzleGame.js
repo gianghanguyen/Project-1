@@ -9,7 +9,7 @@ const PuzzleGame = () => {
 
   useEffect(() => {
     shufflePuzzle();
-  }, []);
+  },[]);
 
   const convertStateToPuzzleArray = (state) => {
     const puzzleArray = [];
@@ -26,24 +26,12 @@ const PuzzleGame = () => {
     setPuzzle(shuffledPuzzle);
     setEmptyIndex(shuffledPuzzle.indexOf(9));
 
-    const puzzleConvert = shuffledPuzzle.map((number) => number);
+    const puzzleConvert = shuffledPuzzle
 
-    // Gọi API để lấy giải pháp của trạng thái mới
     try {
-      // for(let i = 0; i < shufflePuzzle.length(); i++){
-      //   shufflePuzzle[i]--;
-      // }
-      const response = await fetch(`http://localhost:5000/bfs-solver?pntdata=${puzzleConvert.join(',')}`);
-      console.log(response);
-      console.log(solutionStates);
-      const data = await response.json();
-      const convertedStates = data.map((state) => {
-        return {
-          puzzle: convertStateToPuzzleArray(state),
-          emptyIndex: state.flat().indexOf(0),
-        };
-      });
-      setSolutionStates(convertedStates);
+      const response = await fetch(`http://localhost:5000/astar-solver?pntdata=${puzzleConvert.join(',')}`);
+      const data = await response.json(); // Chuyển response sang JSON
+      setSolutionStates(data);
     } catch (error) {
       console.error('Error fetching solution data:', error);
     }
@@ -83,7 +71,6 @@ const PuzzleGame = () => {
       return true;
     };
     
-
     const [showSolution, setShowSolution] = useState(false);
 
     const toggleSolution = () => {
@@ -106,11 +93,10 @@ const PuzzleGame = () => {
           <button onClick={toggleSolution}>Solve</button>
           {isComplete() && <div className="completion-message">Hoàn thành!</div>}
         </div>
-  
+
         {showSolution && (
           <div>
-            {/* Render the solution steps here */}
-            <SolutionBoard solutionStates={solutionStates} />
+            <SolutionBoard moves ={solutionStates} />
           </div>
         )}
       </div>
