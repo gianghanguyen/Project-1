@@ -4,7 +4,7 @@
   grid-template-rows: repeat(3, 100px);
   gap: 5px;
   position: relative;
-  left: 20px; /* Di chuyển sang phải 20px từ vị trí mặc định */
+  left: 80px; /* Di chuyển sang phải 80px từ vị trí mặc định */
   top: 80px;
 }
 
@@ -23,11 +23,12 @@
 
 .puzzle-piece.empty {
   background-color: #fff; /* Màu của ô trống */
-  /* color: #3498db; Màu chữ của ô trống */
 }
 
-#replayButton {
-  margin-top: 10px; /* Add margin to the button */
-  background-color: #3498db;
+.replay-controls-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Điều chỉnh khoảng cách giữa SolutionBoard và replay controls */
+  position: relative;
+  left: 20px; /* Di chuyển sang phải 20px từ vị trí mặc định */
 }
-  
