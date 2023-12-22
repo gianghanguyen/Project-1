@@ -22,7 +22,7 @@ const BoardReplay = ({ moves }) => {
             return prevBoardState;
           }
         });
-      }, 500); // Delay between moves, adjust as needed
+      }, 1000); // Delay between moves, adjust as needed
   
       return () => clearInterval(replayInterval);
     }

@@ -3,7 +3,7 @@ import SolutionBoard from './SolutionBoard';
 import '../style/PuzzleGame.css';
 
 const PuzzleGame = () => {
-  const [puzzle, setPuzzle] = useState(Array.from({ length: 9 }, (_, i) => i + 1));
+  const [puzzle, setPuzzle] = useState(Array.from({ length: 9 }, (_, i) => i));
   const [emptyIndex, setEmptyIndex] = useState(8);
   const [solutionStates, setSolutionStates] = useState([]);
 
@@ -11,25 +11,30 @@ const PuzzleGame = () => {
     shufflePuzzle();
   },[]);
 
-  const convertStateToPuzzleArray = (state) => {
-    const puzzleArray = [];
-    for (let row of state) {
-      for (let num of row) {
-        puzzleArray.push(num);
+  const isSolvable = (puzzleState) => {
+    let inversion = 0;
+    const len = puzzleState.length;
+      for (let i = 0; i < len - 1; i++) {
+      for (let j = i + 1; j < len; j++) {
+        if (puzzleState[i] > 0 && puzzleState[j] > 0 && puzzleState[i] > puzzleState[j]) {
+          inversion++;
+        }
       }
     }
-    return puzzleArray;
+    return inversion % 2 === 0;
   };
 
   const shufflePuzzle = async () => {
-    const shuffledPuzzle = [...puzzle].sort(() => Math.random() - 0.5);
+    var shuffledPuzzle = [...puzzle].sort(() => Math.random() - 0.5);
+    while(!isSolvable(shuffledPuzzle)){
+      console.log('Unsolvale');
+      shuffledPuzzle = [...puzzle].sort(() => Math.random() - 0.5);
+    }
     setPuzzle(shuffledPuzzle);
-    setEmptyIndex(shuffledPuzzle.indexOf(9));
-
-    const puzzleConvert = shuffledPuzzle
+    setEmptyIndex(shuffledPuzzle.indexOf(0));
 
     try {
-      const response = await fetch(`http://localhost:5000/astar-solver?pntdata=${puzzleConvert.join(',')}`);
+      const response = await fetch(`http://localhost:5000/astar-solver?pntdata=${shuffledPuzzle.join(',')}`);
       const data = await response.json(); // Chuyển response sang JSON
       setSolutionStates(data);
     } catch (error) {
@@ -83,7 +88,7 @@ const PuzzleGame = () => {
           {puzzle.map((number, index) => (
             <div
               key={index}
-              className={`puzzle-piece ${number === 9 ? 'empty' : ''}`}
+              className={`puzzle-piece ${number === 0 ? 'empty' : ''}`}
               onClick={() => movePiece(index)}
             >
               {number}

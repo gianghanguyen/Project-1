@@ -7,9 +7,6 @@ CORS(app)
 
 def convertInput(raw_input):
     numbers = list(map(int, raw_input))
-    for i in range(len(numbers)):
-        if numbers[i] == 9:
-          numbers[i] = 0
     board = [numbers[i:i+3] for i in range(0, len(numbers), 3)]
     return board
 
