@@ -22,9 +22,9 @@ body {
     margin-right: 15px;
 
   }
-  .nav-list li:Home{
-    margin-right: 0px;
-  }
+  /* .nav-list li:Home{
+    left: 100px;
+  } */
   .nav-list li:first-child a {
     font-weight: bold;
   }

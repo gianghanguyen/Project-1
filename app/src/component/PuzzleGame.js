@@ -100,14 +100,16 @@ const PuzzleGame = () => {
             {number}
           </div>
         ))}
-        <button onClick={shufflePuzzle}>Shuffle</button>
+        <button className='button'
+        onClick={shufflePuzzle}>Shuffle</button>
 
-        <select value={algorithm} onChange={handleAlgorithmChange}>
+        <select className='select' value={algorithm} onChange={handleAlgorithmChange}>
           <option value="astar">A* Algorithm</option>
           <option value="dfs">Depth First Search</option>
           <option value="bfs">Breadth First Search</option>
         </select>
-        <button onClick={toggleSolution}>Solve</button>
+        <button className='button1'
+         onClick={toggleSolution}>Solve</button>
         {isComplete() && <div className="completion-message">Hoàn thành!</div>}
       </div>
 

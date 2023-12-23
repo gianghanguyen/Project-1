@@ -1,17 +1,17 @@
 #puzzle-container {
     display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 125px);
+    grid-template-rows: repeat(3, 125px);
     gap: 5px;
     position: relative;
-    left: 80px; /* Di chuyển sang phải 20px từ vị trí mặc định */
+    left: 150px; /* Di chuyển sang phải 20px từ vị trí mặc định */
     top: 80px;
 }
 
 .puzzle-piece {
-    width: 100px;
-    height: 100px;
-    background-color: #3498db;
+    width: 125px;
+    height: 125px;
+    background-color: #a3db34;
     color: #fff;
     display: flex;
     align-items: center;
@@ -26,6 +26,82 @@
     /* color: #3498db; Màu chữ của ô trống */
 }
 
-/* .puzzle-piece:hover {
-    background-color: #c8d1d6;
-} */
+#puzzle-container div {
+    border-radius: 5px; 
+  }
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #120773;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }
+  .button1 {
+    position: relative;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #120773;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }
+  .select {
+    border-radius: 5px;
+  }
+  
+ .button:hover {
+  background-color: #07032b;
+  }
+
+  .button1:hover {
+    background-color: #07032b;
+    }
+
+#puzzle-container .puzzle-piece {
+    background-image: url('./test.jpg');
+    background-size: 375px 375px; /* Kích thước của hình ảnh lớn */
+}
+
+/* Xác định vị trí cụ thể cho mỗi piece trong hình ảnh lớn */
+#puzzle-container .puzzle-piece:nth-child(1) {
+    background-position: 0 0;
+}
+
+#puzzle-container .puzzle-piece:nth-child(2) {
+    background-position: -125px 0;
+}
+
+#puzzle-container .puzzle-piece:nth-child(3) {
+    background-position: -250px 0;
+}
+
+/* Tương tự cho các hàng còn lại */
+#puzzle-container .puzzle-piece:nth-child(4) {
+    background-position: 0 -125px;
+}
+
+#puzzle-container .puzzle-piece:nth-child(5) {
+    background-position: -125px -125px;
+}
+
+#puzzle-container .puzzle-piece:nth-child(6) {
+    background-position: -250px -125px;
+}
+
+#puzzle-container .puzzle-piece:nth-child(7) {
+    background-position: 0 -250px;
+}
+
+#puzzle-container .puzzle-piece:nth-child(8) {
+    background-position: -125px -250px;
+}
+
+    #puzzle-container .puzzle-piece:nth-child(9) {
+        background-position: -250px -250px;
+    }

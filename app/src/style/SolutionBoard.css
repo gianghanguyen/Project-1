@@ -1,17 +1,21 @@
-#puzzle-container {
+#solution-container {
   display: grid;
-  grid-template-columns: repeat(3, 100px);
-  grid-template-rows: repeat(3, 100px);
+  grid-template-columns: repeat(3, 125px);
+  grid-template-rows: repeat(3, 125px);
   gap: 5px;
-  position: relative;
-  left: 80px; /* Di chuyển sang phải 80px từ vị trí mặc định */
-  top: 80px;
+  position: fixed;
+  left: 800px; /* Di chuyển sang phải 80px từ vị trí mặc định */
+  top: 80px; 
 }
 
-.puzzle-piece {
-  width: 100px;
-  height: 100px;
-  background-color: #3498db;
+#solution-container div {
+  border-radius: 5px; /* Điều chỉnh giá trị theo ý muốn của bạn */
+}
+
+.solution-piece {
+  width: 125px;
+  height: 125px;
+  background-color: #a3db34;
   color: #fff;
   display: flex;
   align-items: center;
@@ -21,14 +25,44 @@
   user-select: none;
 }
 
-.puzzle-piece.empty {
+.solution-piece.empty {
   background-color: #fff; /* Màu của ô trống */
 }
 
 .replay-controls-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px; /* Điều chỉnh khoảng cách giữa SolutionBoard và replay controls */
+  margin-top: 10px; /* Điều chỉnh khoảng cách giữa SolutionBoard và replay controls */
   position: relative;
-  left: 20px; /* Di chuyển sang phải 20px từ vị trí mặc định */
+  left: 40px; /* Di chuyển sang phải 20px từ vị trí mặc định */
+}
+
+.button2 {
+  position: relative; 
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-right: 10px;
+  cursor: pointer;
+  background-color: #120773;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: 200px; /* Điều chỉnh chiều rộng của button */
+  height: 40px; /* Điều chỉnh chiều cao của button */
+  left: 70px
+}
+
+.button2:hover {
+  background-color: #2818b6;
+  }
+
+.span{
+  position: relative;
+  border: 1px solid #333;
+  border-radius: 5px;
+  left: 65px;
+  padding: 10px 20px;
+  font-weight: normal;
+  font: size 4px;
+  display: inline-block; 
 }
