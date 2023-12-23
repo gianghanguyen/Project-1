@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SolutionBoard from './SolutionBoard';
+import Modal from 'react-modal';
 import '../style/PuzzleGame.css';
 
 const PuzzleGame = () => {
@@ -8,16 +9,45 @@ const PuzzleGame = () => {
   const [solutionStates, setSolutionStates] = useState([]);
   const [algorithm, setAlgorithm] = useState('astar');
   const [boardState, setBoardState] = useState([]);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [inputOrder, setInputOrder] = useState('');
+
+  const appElement = document.getElementById('root');
+  Modal.setAppElement(appElement);
+
+  useEffect(() => {
+  }, [algorithm]);
 
   const handleAlgorithmChange = (event) => {
     setAlgorithm(event.target.value);
   };
 
-  useEffect(() => {
-  }, [algorithm]);
+  const handleInputChange = (event) => {
+    setInputOrder(event.target.value);
+  };
+
+  const openPopup = () => {
+    setPopupOpen(true);
+  }
+
+  const closePopup = () => {
+    setPopupOpen(false);
+  }
+
+  const setCustomOrder = () => {
+    if(inputOrder.length === 9){
+      const arrayFromString = inputOrder.split('');
+      const customState = arrayFromString.map(Number);
+      console.log(customState);
+      setPuzzle(customState);
+      setBoardState(customState);
+      setEmptyIndex(customState.indexOf(0));
+    }
+    closePopup();
+  }
 
   const callApi = async () => {
-      try {
+    try {
       const response = await fetch(`http://localhost:5000/${algorithm}-solver?pntdata=${boardState.join(',')}`);
       const data = await response.json();
       setSolutionStates(data);
@@ -84,8 +114,13 @@ const PuzzleGame = () => {
   const [showSolution, setShowSolution] = useState(false);
 
   const toggleSolution = () => {
-    callApi();
-    setShowSolution(!showSolution);
+    if(!isSolvable(boardState)){
+      alert("The puzzle is unsolvable!");
+    }else{
+      callApi();
+      setShowSolution(!showSolution);
+    }
+
   };
 
   return (
@@ -101,7 +136,7 @@ const PuzzleGame = () => {
           </div>
         ))}
         <button className='button'
-        onClick={shufflePuzzle}>Shuffle</button>
+          onClick={shufflePuzzle}>Shuffle</button>
 
         <select className='select' value={algorithm} onChange={handleAlgorithmChange}>
           <option value="astar">A* Algorithm</option>
@@ -109,7 +144,9 @@ const PuzzleGame = () => {
           <option value="bfs">Breadth First Search</option>
         </select>
         <button className='button1'
-         onClick={toggleSolution}>Solve</button>
+          onClick={toggleSolution}>Solve</button>
+        <button className='button' onClick={openPopup}>Custom Order</button>
+
         {isComplete() && <div className="completion-message">Hoàn thành!</div>}
       </div>
 
@@ -118,6 +155,12 @@ const PuzzleGame = () => {
           <SolutionBoard moves={solutionStates} />
         </div>
       )}
+
+      <Modal ariaHideApp={false} className='modal' isOpen={isPopupOpen} onRequestClose={closePopup}>
+        <p style={{color: 'black'}}>Enter Custom Order</p>
+        <input type="text" value={inputOrder} onChange={handleInputChange} />
+        <button onClick={setCustomOrder}>Set Order</button>
+      </Modal>
     </div>
   );
 };
