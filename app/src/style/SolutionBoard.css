@@ -3,9 +3,9 @@
   grid-template-columns: repeat(3, 125px);
   grid-template-rows: repeat(3, 125px);
   gap: 5px;
-  position: fixed;
-  left: 800px; /* Di chuyển sang phải 80px từ vị trí mặc định */
-  top: 80px; 
+  position: absolute;
+  left: 900px; /* Di chuyển sang phải 80px từ vị trí mặc định */
+  top: 930px; 
 }
 
 #solution-container div {
@@ -15,7 +15,7 @@
 .solution-piece {
   width: 125px;
   height: 125px;
-  background-color: #a3db34;
+  background-color:  #bace51;
   color: #fff;
   display: flex;
   align-items: center;
@@ -43,7 +43,7 @@
   font-size: 16px;
   margin-right: 10px;
   cursor: pointer;
-  background-color: #120773;
+  background-color: #4a9aaa;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -52,9 +52,9 @@
   left: 70px
 }
 
-.button2:hover {
-  background-color: #2818b6;
-  }
+/* .button2:hover {
+  background-color: #5fcce2;
+  } */
 
 .span{
   position: relative;

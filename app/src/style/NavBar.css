@@ -4,7 +4,7 @@ body {
   }
   
   .navbar {
-    background-color: white;
+    background-color: none;
     padding: 5px;
     position: fixed; /* Thanh navbar giữ nguyên ở đầu trang */
     width: 100%; /* Chiều rộng 100% của trang */
@@ -20,12 +20,15 @@ body {
   
   .nav-list li {
     margin-right: 15px;
-
   }
-  /* .nav-list li:Home{
-    left: 100px;
-  } */
+.home {
+  position: relative;
+  font-weight:500;
+  left: 1300px;
+}
   .nav-list li:first-child a {
+    position: relative;
+    left: 30px;
     font-weight: bold;
   }
   

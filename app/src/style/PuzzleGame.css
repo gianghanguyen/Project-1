@@ -4,7 +4,7 @@
     grid-template-rows: repeat(3, 125px);
     gap: 5px;
     position: relative;
-    left: 150px;
+    left: 200px;
     /* Di chuyển sang phải 20px từ vị trí mặc định */
     top: 80px;
 }
@@ -12,7 +12,7 @@
 .puzzle-piece {
     width: 125px;
     height: 125px;
-    background-color: #a3db34;
+    background-color:  #bace51;
     color: #fff;
     display: flex;
     align-items: center;
@@ -32,34 +32,45 @@
     border-radius: 5px;
 }
 
-.button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin-right: 10px;
-    cursor: pointer;
-    background-color: #120773;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-}
-
-.button1 {
+.shuffleButton {
     position: relative;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 14px;
     margin-right: 10px;
     cursor: pointer;
-    background-color: #120773;
+    /* background-color: #fff;
+    color: #fff;
+    */
+    border: #000; 
+    border-radius: 5px;
+    width: 160px;
+    
+}
+
+.solveButton {
+    /* position: relative; */
+    padding: 10px 20px;
+    font-size: 14px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #4a9aaa;
     color: #fff;
     border: none;
     border-radius: 5px;
+    height: 40px;
+    width: 125px;
 }
 
 .select {
+    /* position:relative   ; */
+    margin-left: 0px;
     border-radius: 5px;
+    width: 125px;
+    height: 40px;
 }
 
 .button:hover {
+    
     background-color: #07032b;
 }
 
@@ -72,13 +83,12 @@
    
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    left: 500px;
-    top: 200px;
-    width: 200px; /* Full width */
-    height: 200px; /* Full height */
+    left: 600px;
+    width: 300px; /* Full width */
+    height: 100px; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: #fff;
-    border-color:#07032b;
+    background-color:#d9ded8;
+    border-color:#07032b; 
     padding: 8px 24px;
     border-radius: 3px;
     color: white;
@@ -91,46 +101,15 @@
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
+    border-radius: 3px;
     width: 80%; /* Could be more or less, depending on screen size */
   }
-/* 
-#puzzle-container .puzzle-piece {
-    background-image: url('./test.jpg');
-    background-size: 375px 375px; 
-} */
 
-/* #puzzle-container .puzzle-piece:nth-child(1) {
-    background-position: 0 0;
+.title {
+    position: relative;
+    top: 50px;
 }
-
-#puzzle-container .puzzle-piece:nth-child(2) {
-    background-position: -125px 0;
+.last-element {
+    position: relative;
+    top: 130px; /* Đặt giá trị margin dưới là 20px hoặc giá trị mong muốn */
 }
-
-#puzzle-container .puzzle-piece:nth-child(3) {
-    background-position: -250px 0;
-}
-
-#puzzle-container .puzzle-piece:nth-child(4) {
-    background-position: 0 -125px;
-}
-
-#puzzle-container .puzzle-piece:nth-child(5) {
-    background-position: -125px -125px;
-}
-
-#puzzle-container .puzzle-piece:nth-child(6) {
-    background-position: -250px -125px;
-}
-
-#puzzle-container .puzzle-piece:nth-child(7) {
-    background-position: 0 -250px;
-}
-
-#puzzle-container .puzzle-piece:nth-child(8) {
-    background-position: -125px -250px;
-}
-
-    #puzzle-container .puzzle-piece:nth-child(9) {
-        background-position: -250px -250px;
-    } */

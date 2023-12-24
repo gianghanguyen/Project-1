@@ -35,7 +35,7 @@ const PuzzleGame = () => {
   }
 
   const setCustomOrder = () => {
-    if(inputOrder.length === 9){
+    if (inputOrder.length === 9) {
       const arrayFromString = inputOrder.split('');
       const customState = arrayFromString.map(Number);
       console.log(customState);
@@ -114,9 +114,9 @@ const PuzzleGame = () => {
   const [showSolution, setShowSolution] = useState(false);
 
   const toggleSolution = () => {
-    if(!isSolvable(boardState)){
+    if (!isSolvable(boardState)) {
       alert("The puzzle is unsolvable!");
-    }else{
+    } else {
       callApi();
       setShowSolution(!showSolution);
     }
@@ -125,6 +125,9 @@ const PuzzleGame = () => {
 
   return (
     <div>
+      <h2 className='title'>
+        Shuffle or enter your custom state, then solve!
+      </h2>
       <div id="puzzle-container">
         {puzzle.map((number, index) => (
           <div
@@ -135,18 +138,18 @@ const PuzzleGame = () => {
             {number}
           </div>
         ))}
-        <button className='button'
+        <button className='shuffleButton'
           onClick={shufflePuzzle}>Shuffle</button>
-
+        <br></br>
         <select className='select' value={algorithm} onChange={handleAlgorithmChange}>
           <option value="astar">A* Algorithm</option>
           <option value="dfs">Depth First Search</option>
           <option value="bfs">Breadth First Search</option>
         </select>
-        <button className='button1'
+        <button className='shuffleButton' onClick={openPopup}>Enter custom state</button>
+        <br></br>
+        <button className='solveButton'
           onClick={toggleSolution}>Solve</button>
-        <button className='button' onClick={openPopup}>Custom Order</button>
-
         {isComplete() && <div className="completion-message">Hoàn thành!</div>}
       </div>
 
@@ -157,10 +160,14 @@ const PuzzleGame = () => {
       )}
 
       <Modal ariaHideApp={false} className='modal' isOpen={isPopupOpen} onRequestClose={closePopup}>
-        <p style={{color: 'black'}}>Enter Custom Order</p>
+        <p style={{ color: 'black' }}>Enter your custom state</p>
         <input type="text" value={inputOrder} onChange={handleInputChange} />
-        <button onClick={setCustomOrder}>Set Order</button>
+        <br></br>
+        <button onClick={setCustomOrder}>Set state</button>
       </Modal>
+      <div className='last-element'>
+        <br></br>
+      </div>
     </div>
   );
 };
