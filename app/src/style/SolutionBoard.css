@@ -3,9 +3,9 @@
   grid-template-columns: repeat(3, 125px);
   grid-template-rows: repeat(3, 125px);
   gap: 5px;
-  position: absolute;
+  position: relative;
   left: 900px; /* Di chuyển sang phải 80px từ vị trí mặc định */
-  top: 930px; 
+  top: -395px; 
 }
 
 #solution-container div {
@@ -52,9 +52,6 @@
   left: 70px
 }
 
-/* .button2:hover {
-  background-color: #5fcce2;
-  } */
 
 .span{
   position: relative;

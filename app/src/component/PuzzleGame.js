@@ -16,9 +16,10 @@ const PuzzleGame = () => {
   Modal.setAppElement(appElement);
 
   useEffect(() => {
-  }, [algorithm]);
+  }, [algorithm], [solutionStates]);
 
   const handleAlgorithmChange = (event) => {
+    setShowSolution(false);
     setAlgorithm(event.target.value);
   };
 
@@ -27,6 +28,7 @@ const PuzzleGame = () => {
   };
 
   const openPopup = () => {
+    setShowSolution(false);
     setPopupOpen(true);
   }
 
@@ -38,10 +40,11 @@ const PuzzleGame = () => {
     if (inputOrder.length === 9) {
       const arrayFromString = inputOrder.split('');
       const customState = arrayFromString.map(Number);
-      console.log(customState);
       setPuzzle(customState);
       setBoardState(customState);
       setEmptyIndex(customState.indexOf(0));
+    }else{
+      alert('Invalid state'); 
     }
     closePopup();
   }
@@ -50,6 +53,7 @@ const PuzzleGame = () => {
     try {
       const response = await fetch(`http://localhost:5000/${algorithm}-solver?pntdata=${boardState.join(',')}`);
       const data = await response.json();
+      console.log(data)
       setSolutionStates(data);
     } catch (error) {
       console.error('Error fetching solution data:', error);
@@ -70,6 +74,7 @@ const PuzzleGame = () => {
   };
 
   const shufflePuzzle = async () => {
+    setShowSolution(false);
     var shuffledPuzzle = [...puzzle].sort(() => Math.random() - 0.5);
     while (!isSolvable(shuffledPuzzle)) {
       console.log('Unsolvale');
@@ -113,11 +118,11 @@ const PuzzleGame = () => {
 
   const [showSolution, setShowSolution] = useState(false);
 
-  const toggleSolution = () => {
+  const toggleSolution = async () => {
     if (!isSolvable(boardState)) {
       alert("The puzzle is unsolvable!");
     } else {
-      callApi();
+      await callApi();
       setShowSolution(!showSolution);
     }
 

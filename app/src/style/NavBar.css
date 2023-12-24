@@ -4,7 +4,6 @@ body {
   }
   
   .navbar {
-    background-color: none;
     padding: 5px;
     position: fixed; /* Thanh navbar giữ nguyên ở đầu trang */
     width: 100%; /* Chiều rộng 100% của trang */

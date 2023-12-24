@@ -1,4 +1,5 @@
 .App {
+  max-height: fit-content;
   text-align: center;
 }
 
