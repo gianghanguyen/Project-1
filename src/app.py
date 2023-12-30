@@ -1,6 +1,7 @@
 from flask import Flask,request
 from flask_cors import CORS
 from solver import Puzzle, Solver, Node
+import time
 
 app = Flask(__name__)
 CORS(app)
@@ -20,8 +21,11 @@ def astar():
     solvable = puzzle.isSolvable()
 
     if solvable:
+        tic=time.perf_counter()
         s = Solver(puzzle)
-        path = s.solve()
+        toc = time.perf_counter()
+        path = s.astar()
+        print("Total amount of time in search: {:.9f} second(s)".format(toc - tic))
         return ([convertOutput(node.puzzle.board) for node in path])
     else:
         return "Unable to solve", 400
@@ -33,11 +37,13 @@ def dfs():
     solvable = puzzle.isSolvable()
 
     if solvable:
+        tic=time.perf_counter()
         s = Solver(puzzle)
+        toc = time.perf_counter()
         depthLimit = int(request.args.get('depth_limit', default=100))
         nodeLimit = int(request.args.get('node_limit', default=1000000))
-
         path = s.dfs(depthLimit, nodeLimit)
+        print("Total amount of time in dfs-search: {:.9f} second(s)".format(toc - tic))
         if path != None:
             return ([convertOutput(node.puzzle.board) for node in path])
         else: 
@@ -52,11 +58,14 @@ def bfs():
     solvable = puzzle.isSolvable()
 
     if solvable:
+        tic=time.perf_counter()
         s = Solver(puzzle)
         depthLimit = int(request.args.get('depth_limit', default=100))
         nodeLimit = int(request.args.get('node_limit', default=1000000))
+        path = s.bfs(depthLimit, nodeLimit)
+        toc = time.perf_counter()
+        print("Total amount of time in search: {:.9f} second(s)".format(toc - tic))
 
-        path = s.dfs(depthLimit, nodeLimit)
         if path != None:
             return ([convertOutput(node.puzzle.board) for node in path])
 

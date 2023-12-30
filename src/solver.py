@@ -71,7 +71,7 @@ class Solver:
     def __init__(self, start):
         self.start = start
 
-    def solve(self):
+    def astar(self):
         """
         Perform breadth first search and return a path
         to the solution, if it exists
@@ -96,14 +96,11 @@ class Solver:
         stack = [Node(self.start)]
         seen = set()
         seen.add(stack[0].state)
-        visited_nodes = []
         iterations = 0
 
         while stack and iterations < iteration_limit:
             node = stack.pop()
-            visited_nodes.append(node)
             iterations += 1
-
             if node.solved:
                 return node.path
 
@@ -121,13 +118,11 @@ class Solver:
         queue = collections.deque([Node(self.start)])
         seen = set()
         seen.add(queue[0].state)
-        visited_nodes = []
         iterations = 0
 
         while queue and iterations < iteration_limit:
             queue = collections.deque(sorted(list(queue), key=lambda node: node.f))
             node = queue.popleft()
-            visited_nodes.append(node)
             iterations += 1
 
             if node.solved:
