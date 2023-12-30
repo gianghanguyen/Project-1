@@ -3,9 +3,9 @@
   grid-template-columns: repeat(3, 125px);
   grid-template-rows: repeat(3, 125px);
   gap: 5px;
-  position: relative;
+  position: absolute;
   left: 900px; /* Di chuyển sang phải 80px từ vị trí mặc định */
-  top: -395px; 
+  top: 930px; 
 }
 
 #solution-container div {

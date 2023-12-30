@@ -11,12 +11,18 @@ const PuzzleGame = () => {
   const [boardState, setBoardState] = useState([]);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [inputOrder, setInputOrder] = useState('');
+  const [depthLimit, setDepthLimit] = useState('');
 
   const appElement = document.getElementById('root');
   Modal.setAppElement(appElement);
 
   useEffect(() => {
-  }, [algorithm], [solutionStates]);
+  }, [algorithm], [solutionStates], [depthLimit]);
+
+  const handleDepthLimitChange = (event) => {
+    setDepthLimit(event.target.value);
+    setShowSolution(false);
+  };
 
   const handleAlgorithmChange = (event) => {
     setShowSolution(false);
@@ -51,7 +57,7 @@ const PuzzleGame = () => {
 
   const callApi = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/${algorithm}-solver?pntdata=${boardState.join(',')}`);
+      const response = await fetch(`http://localhost:5000/${algorithm}-solver?pntdata=${boardState.join(',')}&depth_limit=${depthLimit}`);
       const data = await response.json();
       console.log(data)
       setSolutionStates(data);
@@ -146,13 +152,22 @@ const PuzzleGame = () => {
         <button className='shuffleButton'
           onClick={shufflePuzzle}>Shuffle</button>
         <br></br>
+
+        <button className='custom' onClick={openPopup}>Enter custom state</button>
+        {/* <h3 className='descript1'>Select algorithm</h3> */}
         <select className='select' value={algorithm} onChange={handleAlgorithmChange}>
           <option value="astar">A* Algorithm</option>
           <option value="dfs">Depth First Search</option>
           <option value="bfs">Breadth First Search</option>
         </select>
-        <button className='shuffleButton' onClick={openPopup}>Enter custom state</button>
-        <br></br>
+                <br></br>
+        <input
+          type="text"
+          className="depthLimit"
+          placeholder="Depth Limit"
+          value={depthLimit}
+          onChange={handleDepthLimitChange}
+        />
         <button className='solveButton'
           onClick={toggleSolution}>Solve</button>
         {isComplete() && <div className="completion-message">Hoàn thành!</div>}
@@ -171,7 +186,6 @@ const PuzzleGame = () => {
         <button onClick={setCustomOrder}>Set state</button>
       </Modal>
       <div className='last-element'>
-        <br></br>
       </div>
     </div>
   );
