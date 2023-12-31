@@ -58,11 +58,13 @@ const PuzzleGame = () => {
   const callApi = async () => {
     try {
       const response = await fetch(`http://localhost:5000/${algorithm}-solver?pntdata=${boardState.join(',')}&depth_limit=${depthLimit}`);
+
       const data = await response.json();
       console.log(data)
       setSolutionStates(data);
     } catch (error) {
-      console.error('Error fetching solution data:', error);
+      alert('Cant find solution with depth limit '+ depthLimit);
+      // console.error('Error fetching solution data:', error);
     }
   }
 
