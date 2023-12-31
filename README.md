@@ -19,7 +19,7 @@ npm start
 
 ## Demo
 Tìm kiếm lời giải sử dụng thuật toán A*
-![Tìm kiếm lời giải bằng thuật toán A*](demo.mp4)
+![Tìm kiếm lời giải bằng thuật toán A*](demo.gif)
 
 
 
