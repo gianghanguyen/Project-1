@@ -55,13 +55,14 @@ class Solver:
         queue = collections.deque([Node(self.start)])
         seen = set()
         seen.add(queue[0].state)
-        visited_node = []
+        #visited_node = []
         while queue:
             queue = collections.deque(sorted(list(queue), key=lambda node: node.f))
             node = queue.popleft()
-            visited_node.append(node)
+            #visited_node.append(node)
             if node.solved:
-                return visited_node
+                return node.path
+                #return visited_node
 
             for move, action in node.actions:
                 child = Node(move(), node, action)
@@ -108,16 +109,25 @@ class Solver:
         seen = set()
         seen.add(queue[0].state)
         iteration = 0
-        visited_node = []
+        #visited_node = []
 
         while queue and iteration < iteration_limit:
             node = queue.popleft()
-            visited_node.append(node)
+            #visited_node.append(node)
             iteration += 1
             if node.solved:
-                return visited_node
+                #return visited_node
+                return node.path
             
-            if node.g < depth_limit:
+            if depth_limit != 0:
+                if node.g < depth_limit:
+                    for move, action in node.actions:
+                            child = Node(move(), node, action)
+
+                            if child.state not in seen:
+                                queue.append(child)
+                                seen.add(child.state)
+            else: 
                 for move, action in node.actions:
                         child = Node(move(), node, action)
 
