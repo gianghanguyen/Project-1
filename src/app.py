@@ -19,7 +19,7 @@ def solve1():
     raw_input = request.args.get('pntdata').split(',')
     puzzle = Puzzle(convertInput(raw_input))
     solvable = puzzle.isSolvable()
-    print('manhattan'+str(puzzle.manhattan))
+    # print('manhattan'+str(puzzle.manhattan))
 
     if solvable:
         tic=time.perf_counter()
