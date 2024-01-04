@@ -1,6 +1,7 @@
 import random
 import itertools
 import collections
+import heapq
 
 class Node:
     def __init__(self, puzzle, parent=None, action=None):
@@ -45,6 +46,9 @@ class Node:
 
     def __str__(self):
         return str(self.puzzle)
+    
+    def __lt__(self, other):
+        return self.f < other.f
 
 class Solver:
 
@@ -52,24 +56,24 @@ class Solver:
         self.start = start
 
     def astar(self):
-        queue = collections.deque([Node(self.start)])
+        start_node = Node(self.start)
+        queue = [start_node]
         seen = set()
-        seen.add(queue[0].state)
-        #visited_node = []
+        seen.add(start_node.state)
+
         while queue:
-            queue = collections.deque(sorted(list(queue), key=lambda node: node.f))
-            node = queue.popleft()
-            #visited_node.append(node)
+            node = heapq.heappop(queue)
+
             if node.solved:
                 return node.path
-                #return visited_node
 
             for move, action in node.actions:
                 child = Node(move(), node, action)
 
                 if child.state not in seen:
-                    queue.appendleft(child)
+                    heapq.heappush(queue, child)
                     seen.add(child.state)
+
         return None
 
     def dfs(self, depth_limit, iteration_limit):
