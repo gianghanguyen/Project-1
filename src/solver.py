@@ -90,7 +90,7 @@ class Solver:
                 return node.path
 
             if depth_limit != 0:
-                if node.g < depth_limit:
+                if node.g + 1 < depth_limit:
                     for move, action in node.actions:
                         child = Node(move(), node, action)
 
@@ -98,12 +98,12 @@ class Solver:
                             stack.append(child)
                             seen.add(child.state)
             else:
-                    for move, action in node.actions:
-                        child = Node(move(), node, action)
+                for move, action in node.actions:
+                    child = Node(move(), node, action)
 
-                        if child.state not in seen:
-                            stack.append(child)
-                            seen.add(child.state)
+                    if child.state not in seen:
+                        stack.append(child)
+                        seen.add(child.state)
 
 
         return None 
@@ -124,7 +124,7 @@ class Solver:
                 return node.path
             
             if depth_limit != 0:
-                if node.g < depth_limit:
+                if node.g + 1 < depth_limit:
                     for move, action in node.actions:
                             child = Node(move(), node, action)
 
