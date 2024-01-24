@@ -49,34 +49,38 @@ const BoardReplay = ({ moves }) => {
       setBoardState(moves[currentMoveIndex + 1]);
     }
   };
-
-  return (
-    <div>
-      <div id="solution-container">
-        {/* Render your board using boardState */}
-        {boardState.map((number, index) => (
-          <div
-            key={index}
-            className={`solution-piece ${number === 0 ? 'empty' : ''}`}
-          >
-            {number}
+  if((moves && moves.length) > 0){
+    return (
+      <div>
+        <div id="solution-container">
+          {/* Render your board using boardState */}
+          {boardState.map((number, index) => (
+            <div
+              key={index}
+              className={`solution-piece ${number === 0 ? 'empty' : ''}`}
+            >
+              {number}
+            </div>
+          ))}
+          <div className="replay-controls-container">
+            <button className='button2' onClick={isReplaying ? stopReplay : startReplay}>
+              {isReplaying ? 'Stop' : 'Replay'}
+            </button>
+            <button className='button2' onClick={goToPrevMove} disabled={currentMoveIndex === 0}>
+              Prev
+            </button>
+            <span className='span'>   {currentMoveIndex + 1}/{moves.length}   </span>
+            <button className='button2' onClick={goToNextMove} disabled={currentMoveIndex === moves.length - 1}>
+              Next
+            </button>
           </div>
-        ))}
-        <div className="replay-controls-container">
-          <button className='button2' onClick={isReplaying ? stopReplay : startReplay}>
-            {isReplaying ? 'Stop' : 'Replay'}
-          </button>
-          <button className='button2' onClick={goToPrevMove} disabled={currentMoveIndex === 0}>
-            Prev
-          </button>
-          <span className='span'>   {currentMoveIndex + 1}/{moves.length}   </span>
-          <button className='button2' onClick={goToNextMove} disabled={currentMoveIndex === moves.length - 1}>
-            Next
-          </button>
         </div>
       </div>
-    </div>
-  );
+    );
+  }else{
+    return;
+  }
+
 };
 
 export default BoardReplay;

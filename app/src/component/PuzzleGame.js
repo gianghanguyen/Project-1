@@ -11,7 +11,8 @@ const PuzzleGame = () => {
   const [boardState, setBoardState] = useState([]);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [inputOrder, setInputOrder] = useState('');
-  const [depthLimit, setDepthLimit] = useState('');
+  const [depthLimit, setDepthLimit] = useState(0);
+  const [showSolution, setShowSolution] = useState(false);
 
   const appElement = document.getElementById('root');
   Modal.setAppElement(appElement);
@@ -44,27 +45,42 @@ const PuzzleGame = () => {
 
   const setCustomOrder = () => {
     if (inputOrder.length === 9) {
-      const arrayFromString = inputOrder.split('');
-      const customState = arrayFromString.map(Number);
-      setPuzzle(customState);
-      setBoardState(customState);
-      setEmptyIndex(customState.indexOf(0));
-    }else{
-      alert('Invalid state'); 
+      const arrayFromString = inputOrder.split('').map(Number);
+  
+      const isValidInput = arrayFromString.every(
+        (digit) => digit >= 0 && digit <= 8
+      );
+
+      const isUniqueInput = new Set(arrayFromString).size === 9;
+  
+      if (isValidInput && isUniqueInput) {
+        setPuzzle(arrayFromString);
+        setBoardState(arrayFromString);
+        setEmptyIndex(arrayFromString.indexOf(0));
+      } else {
+        alert('Invalid state');
+      }
+    } else {
+      alert('Invalid state');
     }
+  
+    // Đóng popup sau khi xử lý
     closePopup();
-  }
+  };
 
   const callApi = async () => {
     try {
+      if (!boardState || boardState.length === 0) {
+        alert('Please shuffle or enter a custom state');
+        return; // Không gọi API nếu trạng thái là null hoặc rỗng
+      }
       const response = await fetch(`http://localhost:5000/${algorithm}-solver?pntdata=${boardState.join(',')}&depth_limit=${depthLimit}`);
-
       const data = await response.json();
-      console.log(data)
       setSolutionStates(data);
+
     } catch (error) {
+      setSolutionStates(''); 
       alert('Cant find solution with depth limit '+ depthLimit);
-      // console.error('Error fetching solution data:', error);
     }
   }
 
@@ -124,7 +140,7 @@ const PuzzleGame = () => {
     return true;
   };
 
-  const [showSolution, setShowSolution] = useState(false);
+
 
   const toggleSolution = async () => {
     if (!isSolvable(boardState)) {
@@ -132,15 +148,15 @@ const PuzzleGame = () => {
     } else {
       await callApi();
       setShowSolution(!showSolution);
-    }
 
+    }
   };
 
   return (
     <div>
-      <h2 className='title'>
+      {/* <h2 className='title'>
         Shuffle or enter your custom state, then solve!
-      </h2>
+      </h2> */}
       <div id="puzzle-container">
         {puzzle.map((number, index) => (
           <div
@@ -172,7 +188,7 @@ const PuzzleGame = () => {
         />
         <button className='solveButton'
           onClick={toggleSolution}>Solve</button>
-        {isComplete() && <div className="completion-message">Hoàn thành!</div>}
+        {/* {isComplete() && <div className="completion-message">Hoàn thành!</div>} */}
       </div>
 
       {showSolution && (
